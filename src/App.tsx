@@ -1,16 +1,13 @@
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 // @ts-ignore
 import styles from './styles/Commons.module.css'
 import {socket} from "./socket/socket";
 
 export const App = () => {
+    socket.disconnect();
     const [values, setValues] = useState({name: "", room: ""});
     const navigate = useNavigate();
-
-    useEffect(()=>{
-        socket.disconnect();
-    },[socket])
 
     const joinRoomHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
