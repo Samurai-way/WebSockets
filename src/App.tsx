@@ -44,6 +44,7 @@ export const App = () => {
                         type="text"
                         name="room"
                         className={styles.input}
+                        required
                         placeholder="Enter room name"
                         value={values.room}
                         onChange={onChangeHandler}
