@@ -30,7 +30,7 @@ export const Chat = () => {
 
         socket.on('message', handleMessage);
         socket.on('numClients', handleNumClients);
-        socket.emit('joinRoom', {username});
+        socket.emit('joinRoom', username);
 
         return () => {
             socket.off('message', handleMessage);
