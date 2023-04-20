@@ -10,7 +10,7 @@ export const App = () => {
 
     useEffect(()=>{
         socket.disconnect();
-    },[])
+    },[socket])
 
     const joinRoomHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
