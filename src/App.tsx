@@ -1,5 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
+// @ts-ignore
+import styles from './styles/Commons.module.css'
 
 export const App = () => {
     const [values, setValues] = useState({name: "", room: ""});
@@ -13,32 +15,42 @@ export const App = () => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const {value, name} = e.target;
-        setValues((prevValues) => ({...prevValues, [name]: value}));
+        setValues(prevValues => ({...prevValues, [name]: value}));
     };
 
     return (
-        <div>
-            <form onSubmit={joinRoomHandler}>
-                <div>
+        <div className={styles.container}>
+            <form onSubmit={joinRoomHandler} className={styles.form}>
+                <div className={styles.formGroup}>
+                    <label htmlFor="name" className={styles.label}>
+                        Name:
+                    </label>
                     <input
                         type="text"
-                        placeholder="name"
-                        value={values.name}
-                        autoComplete="off"
-                        required
-                        onChange={onChangeHandler}
                         name="name"
+                        autoComplete="off"
+                        className={styles.input}
+                        placeholder="Enter your name"
+                        required
+                        value={values.name}
+                        onChange={onChangeHandler}
                     />
                 </div>
-                <div>
+                <div className={styles.formGroup}>
+                    <label htmlFor="room" className={styles.label}>
+                        Room:
+                    </label>
                     <input
                         type="text"
-                        placeholder="room"
-                        value={values["room"]}
-                        onChange={onChangeHandler}
                         name="room"
+                        className={styles.input}
+                        placeholder="Enter room name"
+                        value={values.room}
+                        onChange={onChangeHandler}
                     />
-                    <button type="submit">Join</button>
+                    <button type="submit" className={styles.button}>
+                        Join
+                    </button>
                 </div>
             </form>
         </div>
