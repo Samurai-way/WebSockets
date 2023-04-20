@@ -1,15 +1,21 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 // @ts-ignore
 import styles from './styles/Commons.module.css'
+import {socket} from "./socket/socket";
 
 export const App = () => {
     const [values, setValues] = useState({name: "", room: ""});
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        socket.disconnect();
+    },[])
+
     const joinRoomHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const {name, room} = values;
+        socket.emit('join', {name});
         navigate(`/chat?name=${name}&room=${room}`);
     };
 
@@ -17,6 +23,7 @@ export const App = () => {
         const {value, name} = e.target;
         setValues(prevValues => ({...prevValues, [name]: value}));
     };
+
 
     return (
         <div className={styles.container}>
