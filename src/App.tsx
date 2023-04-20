@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {ChangeEvent, FormEvent, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+    const [values, setValues] = useState({name: "", room: ""});
+    const navigate = useNavigate();
 
-export default App;
+    const joinRoomHandler = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const {name, room} = values;
+        navigate(`/chat?name=${name}&room=${room}`);
+    };
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const {value, name} = e.target;
+        setValues((prevValues) => ({...prevValues, [name]: value}));
+    };
+
+    return (
+        <div>
+            <form onSubmit={joinRoomHandler}>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="name"
+                        value={values.name}
+                        autoComplete="off"
+                        required
+                        onChange={onChangeHandler}
+                        name="name"
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="room"
+                        value={values["room"]}
+                        onChange={onChangeHandler}
+                        name="room"
+                    />
+                    <button type="submit">Join</button>
+                </div>
+            </form>
+        </div>
+    );
+};
