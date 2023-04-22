@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+// @ts-ignore
+import styles from './Registration.module.css';
 
-const Registration = () => {
+export const Registration = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -14,7 +16,7 @@ const Registration = () => {
             email,
         };
 
-        const response = await fetch('/registration', {
+        const response = await fetch('https://instagramapi-production.up.railway.app/auth/registration', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +30,7 @@ const Registration = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.container}>
             <input type="text" placeholder="Login" value={login} onChange={(e) => setLogin(e.target.value)} />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -36,5 +38,3 @@ const Registration = () => {
         </form>
     );
 };
-
-export default Registration;
